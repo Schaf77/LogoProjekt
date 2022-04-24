@@ -1,0 +1,325 @@
+﻿to animation
+	; Startknopf löschen
+	buttondelete "start-button
+	; nur zur Sicherheit
+	(setturtle 0 "true)
+	ht
+	master_reset
+	;start der Animation
+	repeat 190 [figur_glücklich wait 0.4 pe figur_glücklich pu rechts 3 pd ppt figur_glücklich2 pe figur_glücklich2 ppt]	; Figur (Marvin) wird gespawnt und läuft, bis er den Bildschirmrand überschreitet
+	kackhaufen 8														; Kothaufen wir gespawnt
+	repeat 260 [figur_glücklich wait 0.4 pe figur_glücklich pu rechts 3 pd ppt figur_glücklich2 pe figur_glücklich2 ppt]	; Marvin läuft, bis sie den Kothaufen berührt
+	repeat 20 [figur_traurig wait 1 pe figur_traurig kackhaufen 7 ppt kackhaufen 8 pu rechts 3 pd]				; Marvin wird traurig, als sie den Kothaufen berührt, Kothaufen wird von Turtle No.2 (Index 1) gezeichnet um zu verhindern, dass das Löschen Marvins zu weißen Strichen im Kothaufen führt
+	figur_traurig														; Trauriger Marvin bleibt stehen
+	pu
+	setxy -350 -240												; Turtle wird in Position gebracht, um Bus zu spawnen
+	pd
+	repeat 125 [bus wait 1 pe bus pu rechts 3 pd ppt]									; Bus wird gespawn und fährt, bis er Marvin berührt berührt (berührt nach 120, dann noch 5 weitere Wiederhohlungen für einen besseren Übergang
+	forever [bus2 wait 1 pe bus2 pu rechts 3 pd ppt]									; Marvin hat einen Schlechten Tag. Bus fährt für immer weiter
+end
+
+to arme
+	; zur Startposition gehen
+	pu
+	fd 85
+	; Arme zeichnen
+	pd
+	rt 100
+	fb 40
+	lt 100
+end
+
+to beine
+	; Beine zeichnen
+	rt 135
+	fb 70
+	rt 90
+	fb 70
+	; Rotation reset
+	rt 135
+end
+
+to beine2
+	bk 50
+	fd 50
+end
+
+to bus
+	; Hinteres Rad und Hinterer Radkasten
+	arc 360 30
+	rt 90
+	arc 180 45
+	pu
+	; Hinterseite
+	bk 45
+	lt 90
+	pd
+	fd 40
+	; Warnleuchte
+	setpc 4 setpensize 8 ; setzt Farbe auf Rot und sorgt für einen Dickeren Strich
+	fd 20
+	; Rest der Hinterseite
+	setpc 0 setpensize 1
+	fd 140
+	; Dach
+	rechts 400
+	; Front
+	bk 120
+	; Scheinwerfer
+	setpc 6 setpensize 8
+	bk 30
+	; Rest der Front
+	setpc 0 setpensize 1
+	bk 50
+	; Vorderes Rad und Vorderer Radkasten
+	rt 90
+	pu
+	bk 45
+	pd
+	arc 360 30
+	arc 180 45
+	pu
+	; Boden (1/2)
+	bk 45
+	lt 90
+	pd
+	links 110
+	; Tür
+	fd 125
+	rechts 50
+	bk 125
+	links 100
+	fd 125
+	rechts 50
+	bk 125
+	; Boden (2/2)
+	links 110
+	pu
+	; zurück auf Startposition
+	links 45
+	pd
+end
+
+to bus2
+	; Hinteres Rad und Hinterer Radkasten
+	arc 360 30
+	rt 90
+	arc 180 45
+	pu
+	; Hinterseite
+	bk 45
+	lt 90
+	pd
+	fd 40
+	; Warnleuchte
+	setpc 4 setpensize 8
+	fd 20
+	; Rest der Hinterseite
+	setpc 0 setpensize 1
+	fd 140
+	; Dach
+	rechts 400
+	; Front
+	setpc 4 setpensize 4
+	bk 120
+	; Scheinwerfer
+	setpc 6 setpensize 8
+	bk 30
+	; Rest der Front
+	setpc 0 setpensize 1
+	bk 50
+	; Vorderes Rad und Vorderer Radkasten
+	rt 90
+	pu
+	bk 45
+	pd
+	arc 360 30
+	arc 180 45
+	pu
+	; Boden (1/2)
+	bk 45
+	lt 90
+	pd
+	links 110
+	; Tür
+	fd 125
+	rechts 50
+	bk 125
+	links 100
+	fd 125
+	rechts 50
+	bk 125
+	; Boden (2/2)
+	links 110
+	pu
+	; zurück auf Startposition
+	links 45
+	pd
+end
+
+to fb :len ; Vor und zürück, macht den Code besser lesbarer und erspart mir Arbeit
+	fd :len
+	bk :len
+end
+
+to figur_glücklich ; Zusammensetzung der Einzelnen Körperteile, Animation Frame 1
+	kopf_glücklich
+	körper
+	beine
+	arme
+	pu
+	fd 105
+	pd
+end
+
+to figur_glücklich2 ; Zusammensetzung der Einzelnen Körperteile, Animation Frame 2
+	kopf_glücklich
+	körper
+	beine2
+	arme
+	pu
+	fd 105
+	pd
+end
+
+to figur_traurig ; Zusammensetzung der Einzelnen Körperteile, Animation Frame 1
+	kopf_traurig
+	körper
+	beine
+	arme
+	pu
+	fd 105
+	pd
+end
+
+to figur_traurig2 ; Zusammensetzung der Einzelnen Körperteile, Animation Frame 2
+	kopf_traurig
+	körper
+	beine2
+	arme
+	pu
+	fd 105
+	pd
+end
+
+to kackhaufen :clrindx
+	; zweite Turtle auswählen und verstecken
+	(setturtle 1 "true)
+	ht
+	; braune Farbe und Positionierung
+	pu
+	setpc :clrindx
+	setfloodcolor :clrindx
+	setxy 400 -240
+	; Kothaufenumriss zeichnen
+	pd
+	ELLIPSEARC2 180 30 40 0
+	rt 180
+	links 80
+	pu
+	; in die Mitte des Kothaufens gehen und Kothaufen ausfüllen
+	rechts 40
+	fd 10
+	pd
+	fill
+	(setturtle 0 "true)
+end
+
+to kopf_glücklich
+	; Kopf zeichnen
+	arc 360 40 ; arc ist schneller, eleganter, lesbarer und besser kontrolierbarer als repeat x [fd y rt z]
+	; Ausrichtung für  Mund
+	pu
+	rechts 40
+	rt 22
+	; Mund zeichnen
+	pd
+	arc 45 30
+	; Ausrichting für Auge
+	pu
+	lt 22
+	links 10
+	; Auge zeichnen
+	pd
+	setpc 1
+	repeat 3 [arc 360 repcount]
+	setpc 0
+	; Rückkehr zur Startposition
+	pu links 30
+	pd
+end
+
+to kopf_traurig
+	; Kopf zeichnen (arc ist schneller, eleganter, lesbarer und besser kontrolierbarer als repeat 360 [fd 1 rt 1]
+	arc 360 40
+	pu
+	bk 40
+	rechts 40
+	rt 180
+	pd
+	arc -45 30
+	pu
+	rt 180
+	links 40
+	fd 40
+	; Ausrichtung für Auge
+	rechts 30
+	; Auge zeichnen
+	pd
+	setpc 1
+	repeat 4 [arc 360 repcount]
+	setpc 0
+	; Rückkehr zur Startposition
+	pu
+	links 30
+	pd
+end
+
+to körper
+	; zum Hals gehen
+	pu
+	bk 40
+	pd
+	; Körper zeichnen
+	bk 150
+end
+
+to links :x
+	lt 90
+	fd :x
+	rt 90
+end
+
+to master_reset ; reset alle Werte, um unnötige Fehler zu vermeiden
+	setxy 0 0
+	seth 0
+	setpc 0
+	ppt
+	pd
+	ht
+end
+
+to rechts :x
+	rt 90
+	fd :x
+	lt 90
+end
+
+to start
+	cs
+	(setturtle 0 "true)
+	master_reset
+	; ausrichten
+	pu
+	fd 80
+	links 10
+	rt 90
+	; Titel schreiben
+	label [Ein schlechter Tag]
+	; zutück sur startposition
+	master_reset
+	buttoncreate "main "start-button "Start 0 0 100 30 [cs animation]
+end
+
+Make "ang 360
+Make "rad 40
